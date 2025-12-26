@@ -1,50 +1,87 @@
-/* 
-   Nearby Medical Stores Page
- */
-
-.nearby-stores-page {
-  background-color: #f4f6f8;
-  min-height: 100vh;
-  font-family: 'Poppins', sans-serif;
+body {
+  background: #eef1f7;
+  font-family: "Segoe UI", Arial, sans-serif;
 }
 
-/* Page Header */
-.nearby-stores-page .page-header {
-  background: #ffffff;
-  padding: 25px 0;
-  border-bottom: 1px solid #ddd;
+.container {
+  max-width: 1150px;
 }
 
-/* Location + Map Card */
-.nearby-stores-page .location-box {
-  border-radius: 12px;
+.navbar {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
 }
 
-/* Map Placeholder */
-.nearby-stores-page .map-box {
-  min-height: 350px;
-  background-color: #e9ecef;
-  border-radius: 12px;
+.scan-box {
+  border-radius: 20px;
+  padding: 22px;
+  background: linear-gradient(180deg, #fff, #f7f8fd);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+  border: 1px solid #e5e7eb;
+  height: 360px;
+}
+
+.medicine-box {
+  border-radius: 22px;
+  padding: 20px;
+  background: #fff;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.14);
+  border: 1px solid #e5e7eb;
+  height: 360px;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #6c757d;
+  flex-direction: column;
 }
 
-/* Store Cards */
-.nearby-stores-page .store-card {
-  border-radius: 12px;
+#detailsContent {
+  margin-top: 8px;
+  padding-right: 6px;
+  overflow-y: auto;
+  max-height: 255px;
 }
 
-/* Store Icon */
-.nearby-stores-page .store-icon {
-  font-size: 28px;
-  color: #198754;
+#detailsContent::-webkit-scrollbar {
+  width: 6px;
 }
 
-/* Button – scoped */
-.nearby-stores-page .btn-success {
-  border-radius: 8px;
+#detailsContent::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 10px;
 }
 
-/* end of Nearby Medical Stores Page */
+#medName {
+  color: #0f172a;
+}
+
+#medInfo {
+  color: #334155;
+  line-height: 1.6;
+}
+
+.alt-card {
+  border-radius: 20px;
+  padding: 14px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .1);
+  transition: .25s;
+  cursor: pointer;
+}
+
+.alt-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, .18);
+  border-color: #4f46e5;
+}
+
+.alt-img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+footer {
+  background: #020617;
+  color: #e5e7eb;
+  padding: 26px 0;
+  margin-top: 45px;
+}

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Medicine Scanner & Alternatives</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="../css/medicine.css">
+</head>
+
+<body>
+
+<nav class="navbar navbar-dark bg-dark px-3">
+  <span class="navbar-brand fw-bold">Medicine Finder</span>
+</nav>
+
+<div class="container mt-4">
+
+  <h2 class="fw-bold">Scan Medicine & View Details</h2>
+  <p class="text-secondary">Scan or search medicine and see information, price & alternatives</p>
+
+  <div class="row g-4 mt-2">
+
+    <!-- LEFT — SCAN / SEARCH -->
+    <div class="col-md-4">
+      <div class="scan-box">
+
+        <h5 class="fw-bold mb-3">Scan / Search Medicine</h5>
+
+        <button class="btn btn-primary w-100 mb-3">
+          📷 Scan Medicine Barcode
+        </button>
+
+        <input type="text" id="searchBox" class="form-control mb-3"
+               placeholder="Search medicine name">
+
+        <button class="btn btn-success w-100" onclick="showMedicineDetails()">
+          🔎 Search Medicine
+        </button>
+
+      </div>
+    </div>
+
+
+    <!-- RIGHT — MEDICINE DETAILS -->
+    <div class="col-md-8">
+
+      <div class="medicine-box">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h5 class="fw-bold mb-0">Medicine Details</h5>
+
+          <div class="d-flex gap-2">
+
+            <!-- Language Switch -->
+            <select id="langSelect"
+                    class="form-select form-select-sm"
+                    style="width:130px"
+                    onchange="changeLanguage()"
+                    disabled>
+              <option value="en">English</option>
+              <option value="hi">Hindi</option>
+            </select>
+
+            <!-- Listen Button -->
+            <button class="btn btn-sm btn-dark"
+                    onclick="speakDetails()"
+                    id="listenBtn"
+                    disabled>
+              🔊 Listen
+            </button>
+
+          </div>
+        </div>
+
+        <hr>
+
+        <!-- Scrollable content -->
+        <div id="detailsContent" style="display:none;">
+
+          <h4 id="medName" class="fw-bold"></h4>
+
+          <p id="medInfo"></p>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- CHEAPER ALTERNATIVES -->
+  <h4 class="fw-bold mt-5">Cheaper Medicine Alternatives</h4>
+  <p class="text-secondary">Same salt — lower price — generic options</p>
+
+  <div class="row g-3 mt-1">
+
+    <div class="col-md-3">
+      <div class="alt-card">
+        <img src="https://via.placeholder.com/200x140" class="alt-img">
+        <h6 class="fw-bold mt-2">Generic Paracetamol 500mg</h6>
+        <p class="text-success fw-bold mb-1">₹28 (Strip of 10)</p>
+        <small class="text-secondary">Cheaper alternative</small>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="alt-card">
+        <img src="https://via.placeholder.com/200x140" class="alt-img">
+        <h6 class="fw-bold mt-2">PCM Relief Tablets</h6>
+        <p class="text-success fw-bold mb-1">₹32</p>
+        <small class="text-secondary">Generic substitute</small>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="alt-card">
+        <img src="https://via.placeholder.com/200x140" class="alt-img">
+        <h6 class="fw-bold mt-2">ParaCare 500</h6>
+        <p class="text-success fw-bold mb-1">₹30</p>
+        <small class="text-secondary">Low-cost alternative</small>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="alt-card">
+        <img src="https://via.placeholder.com/200x140" class="alt-img">
+        <h6 class="fw-bold mt-2">MediPar 500</h6>
+        <p class="text-success fw-bold mb-1">₹26</p>
+        <small class="text-secondary">Affordable option</small>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<footer>
+  <div class="container text-center">
+    Medicine Finder — Generic Alternatives & Savings
+  </div>
+</footer>
+
+<script src="../js/medicine.js"></script>
+
+</body>
+</html>

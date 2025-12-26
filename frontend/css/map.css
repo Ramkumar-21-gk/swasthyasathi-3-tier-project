@@ -1,0 +1,51 @@
+
+/* 
+   Nearby Medical Stores Page
+ */
+
+.nearby-stores-page {
+  background-color: #f4f6f8;
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Page Header */
+.nearby-stores-page .page-header {
+  background: #ffffff;
+  padding: 25px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Location + Map Card */
+.nearby-stores-page .location-box {
+  border-radius: 12px;
+}
+
+/* Map Placeholder */
+.nearby-stores-page .map-box {
+  min-height: 350px;
+  background-color: #e9ecef;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6c757d;
+}
+
+/* Store Cards */
+.nearby-stores-page .store-card {
+  border-radius: 12px;
+}
+
+/* Store Icon */
+.nearby-stores-page .store-icon {
+  font-size: 28px;
+  color: #198754;
+}
+
+/* Button – scoped */
+.nearby-stores-page .btn-success {
+  border-radius: 8px;
+}
+
+/* end of Nearby Medical Stores Page */
