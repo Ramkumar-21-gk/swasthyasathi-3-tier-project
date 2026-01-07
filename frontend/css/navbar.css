@@ -1,0 +1,78 @@
+/* LOGO */
+.app-logo {
+  font-size: 22px;
+  font-weight: 800;
+  color: #4da3ff !important;
+  /* subtle blue highlight */
+  letter-spacing: .6px;
+}
+
+/* NAVBAR CONTAINER */
+.navbar {
+  background: #000000 !important;
+  /* Pure black */
+  border-bottom: 1px solid #111;
+  border-radius: 0 0 0px 0px;
+  transition: box-shadow .25s ease, background .25s ease;
+}
+
+/* Shadow on scroll */
+.navbar.scrolled {
+  box-shadow: 0 10px 28px rgba(0, 0, 0, .6);
+}
+
+/* NAV LINKS */
+.nav-link {
+  color: #e5e5e5 !important;
+  font-weight: 600;
+  letter-spacing: .3px;
+}
+
+.nav-link:hover {
+  color: #4da3ff !important;
+  /* soft neon blue hover */
+}
+
+/* OUTLINE BUTTON */
+.btn-outline-primary {
+  border-radius: 50px;
+  border: 1px solid #4da3ff;
+  color: #4da3ff;
+  font-weight: 600;
+  padding: 8px 16px;
+  transition: .25s;
+}
+
+.btn-outline-primary:hover {
+  background: #4da3ff;
+  color: #000 !important;
+  box-shadow: 0 0 18px rgba(77, 163, 255, .6);
+}
+
+/* PRIMARY BUTTON */
+.btn-primary {
+  border-radius: 50px;
+  background: linear-gradient(145deg, #4da3ff, #1e78ff);
+  border: none;
+  font-weight: 700;
+  padding: 8px 18px;
+  color: #fff;
+  transition: .25s;
+}
+
+.btn-primary:hover {
+  opacity: .9;
+  transform: translateY(-1px);
+  box-shadow: 0 0 20px rgba(77, 163, 255, .7);
+}
+
+/* LOGIN (GHOST STYLE) */
+.btn-login {
+  color: #dcdcdc !important;
+  font-weight: 600;
+  padding: 6px 10px;
+}
+
+.btn-login:hover {
+  color: #4da3ff !important;
+}

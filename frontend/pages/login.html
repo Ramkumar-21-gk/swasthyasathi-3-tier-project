@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login/Register</title>
+    <title>Login / Register</title>
     <link rel="stylesheet" href="../css/auth.css" />
     <link
       rel="stylesheet"
@@ -15,45 +15,76 @@
     />
   </head>
   <body>
+
     <div class="container">
       <div class="form-box">
-        <h1 class="title">Sign Up</h1>
+        <h1 class="title" id="form-title">Sign In</h1>
         <div class="underline"></div>
 
-        <form action="">
+        <!-- Global message area -->
+        <div id="auth-message" class="auth-message" role="alert" aria-live="polite"></div>
+
+        <!-- Login Form -->
+        <form id="login-form" novalidate>
+          <div class="input-group">
+            <div class="input-field">
+              <i class="fa-solid fa-at" aria-hidden="true"></i>
+              <label for="login-email" class="visually-hidden"></label>
+              <input id="login-email" name="email" type="email" placeholder="Email" required />
+            </div>
+
+            <div class="input-field">
+              <i class="fa-solid fa-key" aria-hidden="true"></i>
+              <label for="login-password" class="visually-hidden"></label>
+              <input id="login-password" name="password" type="password" placeholder="Password" required />
+            </div>
+
+            <p>
+              <span class="text">Lost Password</span>
+              <a href="#" aria-disabled="true">Coming soon</a>
+            </p>
+          </div>
+          <div class="btn-field">
+            <button id="login-submit" type="submit" class="signinbtn">Sign in</button>
+            <button id="show-register-btn" type="button" class="signupbtn">Create account</button>
+          </div>
+        </form>
+
+        <!-- Register Form -->
+        <form id="register-form" hidden novalidate>
           <div class="input-group">
             <div class="input-field namefield">
-              <i class="fa-solid fa-user"></i>
-              <input type="text" placeholder="Name" />
+              <i class="fa-solid fa-user" aria-hidden="true"></i>
+              <label for="register-name" class="visually-hidden"></label>
+              <input id="register-name" name="name" type="text" placeholder="Name" required />
             </div>
 
             <div class="input-field">
-              <i class="fa-solid fa-at"></i>
-              <input type="email" placeholder="Email" />
+              <i class="fa-solid fa-at" aria-hidden="true"></i>
+              <label for="register-email" class="visually-hidden"></label>
+              <input id="register-email" name="email" type="email" placeholder="Email" required />
             </div>
 
             <div class="input-field">
-              <i class="fa-solid fa-key"></i>
-              <input type="password" placeholder="Password" />
+              <i class="fa-solid fa-key" aria-hidden="true"></i>
+              <label for="register-password" class="visually-hidden"></label>
+              <input id="register-password" name="password" type="password" placeholder="Password" required />
             </div>
-            <!-- end input-field -->
 
             <p>
               <span class="text">Password Suggestion</span>
-              <a href="#"> Click Here!</a>
+              <a href="#" aria-disabled="true">Coming soon</a>
             </p>
           </div>
-          <!-- end input-group -->
           <div class="btn-field">
-            <button type="button" class="signupbtn">Sign up</button>
-            <button type="button" class="disable signinbtn">Sign in</button>
+            <button id="register-submit" type="submit" class="signupbtn">Sign up</button>
+            <button id="show-login-btn" type="button" class="signinbtn">Already have an account</button>
           </div>
-          <!-- end btn-field -->
         </form>
       </div>
-      <!-- end form-box -->
     </div>
-    <!-- end container -->
+
+    <!-- App scripts -->
     <script src="../js/auth.js"></script>
   </body>
 </html>

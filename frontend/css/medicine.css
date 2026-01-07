@@ -1,6 +1,7 @@
 body {
   background: #eef1f7;
   font-family: "Segoe UI", Arial, sans-serif;
+  padding-top: 60px;
 }
 
 .container {
@@ -79,9 +80,3 @@ body {
   border-radius: 16px;
 }
 
-footer {
-  background: #020617;
-  color: #e5e7eb;
-  padding: 26px 0;
-  margin-top: 45px;
-}

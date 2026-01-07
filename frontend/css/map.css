@@ -1,51 +1,160 @@
+/* ===============================
+   Nearby Medical Stores – Theme
+==================================*/
 
-/* 
-   Nearby Medical Stores Page
- */
+body {
+  background: linear-gradient(180deg, #eef4f3, #ffffff);
+  font-family: "Poppins", sans-serif;
+  padding-top: 60px;
+}
 
 .nearby-stores-page {
-  background-color: #f4f6f8;
   min-height: 100vh;
-  font-family: 'Poppins', sans-serif;
 }
 
-/* Page Header */
-.nearby-stores-page .page-header {
-  background: #ffffff;
-  padding: 25px 0;
-  border-bottom: 1px solid #ddd;
+
+/* ---------- Navbar ---------- */
+.navbar {
+  border-radius: 0 0 18px 18px;
 }
 
-/* Location + Map Card */
-.nearby-stores-page .location-box {
-  border-radius: 12px;
+
+/* ---------- Header ---------- */
+
+.page-header {
+  padding: 10px 0;
 }
 
-/* Map Placeholder */
-.nearby-stores-page .map-box {
-  min-height: 350px;
-  background-color: #e9ecef;
-  border-radius: 12px;
+/* Title */
+.page-header h3 {
+  font-weight: 800;
+  font-size: 24px;
+  margin-bottom: 2px;
+  color: #1b3a2b;
+}
+
+/* Subtitle */
+.page-header p {
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 0;
+  color: #3f5b4b;
+}
+
+
+/* ---------- Location Wrapper ---------- */
+.location-box {
+  border-radius: 18px;
+  border: none;
+  background: #fff;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, .06);
+}
+
+
+/* ---------- Map Section ---------- */
+.map-box {
+  min-height: 360px;
+  border-radius: 16px;
+  background: linear-gradient(145deg, #eef2f4, #ffffff);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #6c757d;
+  color: #6d7a83;
+  border: 1px dashed #b8c4cc;
 }
 
-/* Store Cards */
-.nearby-stores-page .store-card {
-  border-radius: 12px;
-}
-
-/* Store Icon */
-.nearby-stores-page .store-icon {
-  font-size: 28px;
+.map-box i {
+  font-size: 56px;
   color: #198754;
 }
 
-/* Button – scoped */
-.nearby-stores-page .btn-success {
-  border-radius: 8px;
+
+/* ---------- Location Panel ---------- */
+.location-panel h5 {
+  font-weight: 800;
+  color: #198754;
 }
 
-/* end of Nearby Medical Stores Page */
+.location-panel small {
+  color: #6c757d;
+}
+
+.btn-success {
+  border-radius: 12px;
+  padding: 10px;
+  font-weight: 600;
+  box-shadow: 0 8px 16px rgba(25, 135, 84, .25);
+  transition: .25s;
+}
+
+.btn-success:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 22px rgba(25, 135, 84, .35);
+}
+
+.input-group .form-control {
+  border-radius: 10px;
+}
+
+.input-group-text {
+  border-radius: 10px 0 0 10px;
+  background: #eff3f5;
+}
+
+
+/* ---------- Store Section ---------- */
+.store-section-title {
+  font-weight: 800;
+}
+
+
+/* ---------- Store Cards ---------- */
+.store-card {
+  border-radius: 16px;
+  border: none;
+  transition: .25s ease;
+  background: #ffffff;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, .05);
+}
+
+.store-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 44px rgba(0, 0, 0, .10);
+}
+
+.store-icon {
+  font-size: 32px;
+  color: #198754;
+  background: #e9f7f0;
+  padding: 12px 14px;
+  border-radius: 16px;
+}
+
+.store-card h6 {
+  font-weight: 800;
+  margin-bottom: 2px;
+}
+
+.store-meta {
+  color: #6c757d;
+  font-size: 13px;
+}
+
+.btn-outline-success {
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.btn-outline-success:hover {
+  background: #198754;
+  color: #fff;
+}
+
+
+/* ---------- Footer ---------- */
+.footer {
+  background: #000;
+  color: #aaa;
+  padding: 14px 0;
+  margin-top: 20px;
+}
