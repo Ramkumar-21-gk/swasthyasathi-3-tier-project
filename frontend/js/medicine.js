@@ -1,7 +1,37 @@
+function disableLanguageControls() {
+  document.getElementById("langSelect").disabled = true;
+  document.getElementById("listenBtn").disabled = true;
+}
+
+function enableLanguageControls() {
+  document.getElementById("langSelect").disabled = false;
+  document.getElementById("listenBtn").disabled = false;
+}
+
+function translateToHindi(text) {
+  const map = {
+    "Generic Name": "सामान्य नाम",
+    Category: "श्रेणी",
+    Uses: "उपयोग",
+    Symptoms: "लक्षण",
+    "How to use": "कैसे लें",
+    Warnings: "चेतावनी",
+    "Side Effects": "दुष्प्रभाव",
+    "Not available": "उपलब्ध नहीं",
+  };
+
+  let translated = text;
+  for (let key in map) {
+    translated = translated.replaceAll(key, map[key]);
+  }
+  return translated;
+}
+
 // Store raw API data (for future language support)
 let currentMedicine = null;
 
 async function showMedicineDetails() {
+  disableLanguageControls();
   const name = document.getElementById("searchBox").value.trim();
 
   if (!name) {
@@ -12,7 +42,8 @@ async function showMedicineDetails() {
   // UI reset
   document.getElementById("detailsContent").style.display = "block";
   document.getElementById("medName").innerText = name;
-  document.getElementById("medInfo").innerHTML = "Fetching medicine information...";
+  document.getElementById("medInfo").innerHTML =
+    "Fetching medicine information...";
   document.getElementById("langSelect").disabled = true;
   document.getElementById("listenBtn").disabled = true;
 
@@ -29,6 +60,7 @@ async function showMedicineDetails() {
     currentMedicine = data;
 
     renderMedicineDetails(data);
+    enableLanguageControls();
     renderAlternatives(data.alternatives || []);
 
     document.getElementById("langSelect").disabled = false;
@@ -36,6 +68,7 @@ async function showMedicineDetails() {
   } catch (err) {
     document.getElementById("medInfo").innerHTML =
       "<span class='text-danger'>Medicine information not available. Please consult a doctor.</span>";
+    enableLanguageControls();
   }
 }
 
@@ -87,8 +120,7 @@ function renderAlternatives(alternatives) {
   container.innerHTML = "";
 
   if (!alternatives.length) {
-    container.innerHTML =
-      "<p class='text-muted'>No alternatives available</p>";
+    container.innerHTML = "<p class='text-muted'>No alternatives available</p>";
     return;
   }
 
@@ -115,15 +147,26 @@ function listItems(arr = []) {
 
 // Language switch (future-ready)
 function changeLanguage() {
-  // Only English exists for now
+  if (!currentMedicine) return;
+
+  const lang = document.getElementById("langSelect").value;
   renderMedicineDetails(currentMedicine);
+
+  if (lang === "hi") {
+    const content = document.getElementById("medInfo").innerHTML;
+    document.getElementById("medInfo").innerHTML = translateToHindi(content);
+  }
 }
 
 // Text-to-speech
 function speakDetails() {
+  const lang = document.getElementById("langSelect").value;
   const text = document.getElementById("medInfo").innerText;
+
   const speech = new SpeechSynthesisUtterance(text);
-  speech.lang = "en-IN";
+
+  speech.lang = lang === "hi" ? "hi-IN" : "en-IN";
+
   window.speechSynthesis.cancel();
   window.speechSynthesis.speak(speech);
 }

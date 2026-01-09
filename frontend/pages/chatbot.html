@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Health Assistant</title>
+
+
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+  <link rel="stylesheet" href="../css/chatbot copy.css">
+</head>
+<body>
+
+<div class="container">
+
+
+  <aside class="sidebar">
+
+    <div class="logo">
+      <lottie-player
+        src="https://assets1.lottiefiles.com/packages/lf20_1cazwtnc.json"
+
+        background="transparent"
+        speed="1"
+        loop
+        autoplay>
+      </lottie-player>
+    </div>
+
+    <h2>HealthBot</h2>
+    <p>Medical AI Assistant</p>
+
+  </aside>
+
+  <main class="main">
+
+    <header class="header">
+      <h1>AI Health Assistant</h1>
+      <span>Educational • Not for diagnosis</span>
+    </header>
+
+    <section class="chat-area" id="chatArea">
+      <div class="message bot">
+        👋 Hello! Upload an image or describe your symptoms.
+      </div>
+    </section>
+
+    <section class="controls">
+      <div class="input-area">
+
+        <label for="imageUpload" class="icon-btn">＋</label>
+        <input type="file" id="imageUpload" hidden>
+
+        <input type="text" id="userInput" placeholder="Message HealthBot...">
+
+        <button class="icon-btn" onclick="startVoice()">🎤</button>
+        <button class="send-btn" onclick="sendMessage()">➤</button>
+
+      </div>
+    </section>
+
+    <footer class="footer">
+      ⚠ This system provides educational information only
+    </footer>
+
+  </main>
+
+</div>
+
+<script src="../js/chatbot.js"></script>
+</body>
+</html>

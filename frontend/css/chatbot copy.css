@@ -1,0 +1,130 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #0b0e14;
+  color: white;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 240px;
+  background: #0f1320;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo {
+  width: 120px;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.logo lottie-player {
+  width: 120px;
+  height: 120px;
+}
+
+.sidebar h2 {
+  margin-bottom: 6px;
+}
+
+.sidebar p {
+  font-size: 14px;
+  color: #9bbcd1;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  padding: 20px;
+  border-bottom: 1px solid #1c2230;
+}
+
+.header span {
+  font-size: 13px;
+  color: #9bbcd1;
+}
+
+.chat-area {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+}
+
+.message {
+  max-width: 80%;
+  padding: 14px;
+  border-radius: 12px;
+  margin-bottom: 14px;
+}
+
+.bot {
+  background: #1c2230;
+}
+
+.user {
+  background: #1e90ff;
+  margin-left: auto;
+}
+.controls {
+  padding: 15px;
+  border-top: 1px solid #1c2230;
+}
+
+.input-area {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #0f1320;
+  padding: 10px;
+  border-radius: 12px;
+}
+
+.input-area input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: white;
+  outline: none;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  color: #cbd5e1;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.send-btn {
+  background: #1e90ff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+}
+.footer {
+  font-size: 12px;
+  color: #94a3b8;
+  text-align: center;
+  padding: 10px;
+}
