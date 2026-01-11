@@ -1,3 +1,5 @@
+let originalEnglishHTML = "";
+
 function disableLanguageControls() {
   document.getElementById("langSelect").disabled = true;
   document.getElementById("listenBtn").disabled = true;
@@ -8,23 +10,26 @@ function enableLanguageControls() {
   document.getElementById("listenBtn").disabled = false;
 }
 
-function translateToHindi(text) {
-  const map = {
-    "Generic Name": "सामान्य नाम",
-    Category: "श्रेणी",
-    Uses: "उपयोग",
-    Symptoms: "लक्षण",
-    "How to use": "कैसे लें",
-    Warnings: "चेतावनी",
-    "Side Effects": "दुष्प्रभाव",
-    "Not available": "उपलब्ध नहीं",
-  };
+async function translateTextLibre(text, targetLang) {
+  const res = await fetch("http://localhost:5000/translate", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      q: text,
+      source: "en",
+      target: targetLang,
+      format: "text",
+    }),
+  });
 
-  let translated = text;
-  for (let key in map) {
-    translated = translated.replaceAll(key, map[key]);
+  if (!res.ok) {
+    throw new Error("Translation failed");
   }
-  return translated;
+
+  const data = await res.json();
+  return data.translatedText;
 }
 
 // Store raw API data (for future language support)
@@ -112,8 +117,10 @@ function renderMedicineDetails(med) {
     </div>
   `;
 
+  originalEnglishHTML = html; // ⭐ store original
   document.getElementById("medInfo").innerHTML = html;
 }
+
 
 function renderAlternatives(alternatives) {
   const container = document.querySelector(".row.g-3.mt-1");
@@ -146,16 +153,26 @@ function listItems(arr = []) {
 }
 
 // Language switch (future-ready)
-function changeLanguage() {
-  if (!currentMedicine) return;
-
+async function changeLanguage() {
   const lang = document.getElementById("langSelect").value;
-  renderMedicineDetails(currentMedicine);
+  const medInfo = document.getElementById("medInfo");
 
-  if (lang === "hi") {
-    const content = document.getElementById("medInfo").innerHTML;
-    document.getElementById("medInfo").innerHTML = translateToHindi(content);
+  // Always restore English first
+  medInfo.innerHTML = originalEnglishHTML;
+
+  if (lang === "en") return;
+
+  disableLanguageControls();
+
+  try {
+    const plainText = medInfo.innerText;
+    const translated = await translateTextLibre(plainText, "hi");
+    medInfo.innerText = translated;
+  } catch (err) {
+    alert("Hindi translation failed. Please try again.");
   }
+
+  enableLanguageControls();
 }
 
 // Text-to-speech
