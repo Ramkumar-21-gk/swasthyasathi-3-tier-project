@@ -15,14 +15,18 @@
     />
   </head>
   <body>
-
     <div class="container">
       <div class="form-box">
         <h1 class="title" id="form-title">Sign In</h1>
         <div class="underline"></div>
 
         <!-- Global message area -->
-        <div id="auth-message" class="auth-message" role="alert" aria-live="polite"></div>
+        <div
+          id="auth-message"
+          class="auth-message"
+          role="alert"
+          aria-live="polite"
+        ></div>
 
         <!-- Login Form -->
         <form id="login-form" novalidate>
@@ -30,13 +34,25 @@
             <div class="input-field">
               <i class="fa-solid fa-at" aria-hidden="true"></i>
               <label for="login-email" class="visually-hidden"></label>
-              <input id="login-email" name="email" type="email" placeholder="Email" required />
+              <input
+                id="login-email"
+                name="email"
+                type="email"
+                placeholder="Email"
+                required
+              />
             </div>
 
             <div class="input-field">
               <i class="fa-solid fa-key" aria-hidden="true"></i>
               <label for="login-password" class="visually-hidden"></label>
-              <input id="login-password" name="password" type="password" placeholder="Password" required />
+              <input
+                id="login-password"
+                name="password"
+                type="password"
+                placeholder="Password"
+                required
+              />
             </div>
 
             <p>
@@ -45,8 +61,12 @@
             </p>
           </div>
           <div class="btn-field">
-            <button id="login-submit" type="submit" class="signinbtn">Sign in</button>
-            <button id="show-register-btn" type="button" class="signupbtn">Create account</button>
+            <button id="login-submit" type="submit" class="signinbtn">
+              Sign in
+            </button>
+            <button id="show-register-btn" type="button" class="signupbtn">
+              Create account
+            </button>
           </div>
         </form>
 
@@ -56,19 +76,37 @@
             <div class="input-field namefield">
               <i class="fa-solid fa-user" aria-hidden="true"></i>
               <label for="register-name" class="visually-hidden"></label>
-              <input id="register-name" name="name" type="text" placeholder="Name" required />
+              <input
+                id="register-name"
+                name="name"
+                type="text"
+                placeholder="Name"
+                required
+              />
             </div>
 
             <div class="input-field">
               <i class="fa-solid fa-at" aria-hidden="true"></i>
               <label for="register-email" class="visually-hidden"></label>
-              <input id="register-email" name="email" type="email" placeholder="Email" required />
+              <input
+                id="register-email"
+                name="email"
+                type="email"
+                placeholder="Email"
+                required
+              />
             </div>
 
             <div class="input-field">
               <i class="fa-solid fa-key" aria-hidden="true"></i>
               <label for="register-password" class="visually-hidden"></label>
-              <input id="register-password" name="password" type="password" placeholder="Password" required />
+              <input
+                id="register-password"
+                name="password"
+                type="password"
+                placeholder="Password"
+                required
+              />
             </div>
 
             <p>
@@ -77,14 +115,19 @@
             </p>
           </div>
           <div class="btn-field">
-            <button id="register-submit" type="submit" class="signupbtn">Sign up</button>
-            <button id="show-login-btn" type="button" class="signinbtn">Already have an account</button>
+            <button id="register-submit" type="submit" class="signupbtn">
+              Sign up
+            </button>
+            <button id="show-login-btn" type="button" class="signinbtn">
+              Already have an account
+            </button>
           </div>
         </form>
       </div>
     </div>
 
     <!-- App scripts -->
+    <script src="../js/auth.config.js"></script>
     <script src="../js/auth.js"></script>
   </body>
 </html>

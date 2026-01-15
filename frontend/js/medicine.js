@@ -1,5 +1,11 @@
-let originalEnglishHTML = "";
+/***********************
+ * GLOBAL STATE
+ ***********************/
+let originalMedicineData = null;
 
+/***********************
+ * UI HELPERS
+ ***********************/
 function disableLanguageControls() {
   document.getElementById("langSelect").disabled = true;
   document.getElementById("listenBtn").disabled = true;
@@ -10,15 +16,30 @@ function enableLanguageControls() {
   document.getElementById("listenBtn").disabled = false;
 }
 
+function updateScanLimitUI() {
+  const warning = document.getElementById("scanLimitWarning");
+  const counter = document.getElementById("scanCountDisplay");
+
+  if (!AuthConfig.isLoggedIn) {
+    warning.style.display = "block";
+    counter.textContent = AuthConfig.scanCount;
+  } else {
+    warning.style.display = "none";
+  }
+}
+
+/***********************
+ * LIBRETRANSLATE (SELF-HOSTED)
+ ***********************/
 async function translateTextLibre(text, targetLang) {
-  const res = await fetch("http://localhost:5000/translate", {
+  const res = await fetch("http://localhost:5001/translate", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
       q: text,
-      source: "en",
+      source: "auto",
       target: targetLang,
       format: "text",
     }),
@@ -32,25 +53,52 @@ async function translateTextLibre(text, targetLang) {
   return data.translatedText;
 }
 
-// Store raw API data (for future language support)
-let currentMedicine = null;
+/***********************
+ * BUILD TRANSLATION PAYLOAD
+ ***********************/
+function buildTranslationPayload(med) {
+  return {
+    genericName: med.genericName || "N/A",
+    category: med.category || "N/A",
+    howToUse: med.howToUse || "N/A",
+    uses: med.uses || [],
+    symptoms: med.symptoms || [],
+    warnings: med.warnings || [],
+    sideEffects: med.sideEffects || [],
+  };
+}
 
+async function translateArray(arr) {
+  return Promise.all(arr.map((item) => translateTextLibre(item, "hi")));
+}
+
+/***********************
+ * MAIN SEARCH FUNCTION
+ ***********************/
 async function showMedicineDetails() {
-  disableLanguageControls();
-  const name = document.getElementById("searchBox").value.trim();
+  // Check scan limit for non-logged-in users
+  if (!AuthConfig.isLoggedIn) {
+    if (!AuthConfig.canScan) {
+      alert(
+        "🔒 You have reached your free scan limit (3 scans).\n\nLogin or register for unlimited scans and see medicine alternatives!"
+      );
+      return;
+    }
+  }
 
+  disableLanguageControls();
+
+  const name = document.getElementById("searchBox").value.trim();
   if (!name) {
     alert("Enter medicine name");
+    enableLanguageControls();
     return;
   }
 
-  // UI reset
   document.getElementById("detailsContent").style.display = "block";
   document.getElementById("medName").innerText = name;
   document.getElementById("medInfo").innerHTML =
     "Fetching medicine information...";
-  document.getElementById("langSelect").disabled = true;
-  document.getElementById("listenBtn").disabled = true;
 
   try {
     const res = await fetch(
@@ -62,68 +110,133 @@ async function showMedicineDetails() {
     }
 
     const data = await res.json();
-    currentMedicine = data;
 
-    renderMedicineDetails(data);
-    enableLanguageControls();
+    // ⭐ Store original structured data
+    originalMedicineData = data;
+
+    await renderMedicineDetails(data, "en");
     renderAlternatives(data.alternatives || []);
 
-    document.getElementById("langSelect").disabled = false;
-    document.getElementById("listenBtn").disabled = false;
+    // Increment scan count and update UI
+    if (!AuthConfig.isLoggedIn) {
+      AuthConfig.incrementScan();
+      updateScanLimitUI();
+    }
   } catch (err) {
     document.getElementById("medInfo").innerHTML =
       "<span class='text-danger'>Medicine information not available. Please consult a doctor.</span>";
-    enableLanguageControls();
   }
+
+  enableLanguageControls();
 }
 
-function renderMedicineDetails(med) {
-  document.getElementById("medName").innerText = med.medicineName;
+/***********************
+ * RENDER MEDICINE DETAILS
+ ***********************/
+async function renderMedicineDetails(med, lang = "en") {
+  let genericName = med.genericName || "N/A";
+  let category = med.category || "N/A";
+  let howToUse = med.howToUse || "N/A";
+  let uses = med.uses || [];
+  let symptoms = med.symptoms || [];
+  let warnings = med.warnings || [];
+  let sideEffects = med.sideEffects || [];
+
+  if (lang === "hi") {
+    genericName = await translateTextLibre(genericName, "hi");
+    category = await translateTextLibre(category, "hi");
+    howToUse = await translateTextLibre(howToUse, "hi");
+
+    uses = await translateArray(uses);
+    symptoms = await translateArray(symptoms);
+    warnings = await translateArray(warnings);
+    sideEffects = await translateArray(sideEffects);
+  }
+  if (lang === "ur") {
+    genericName = await translateTextLibre(genericName, "ur");
+    category = await translateTextLibre(category, "ur");
+    howToUse = await translateTextLibre(howToUse, "ur");
+
+    uses = await translateArray(uses);
+    symptoms = await translateArray(symptoms);
+    warnings = await translateArray(warnings);
+    sideEffects = await translateArray(sideEffects);
+  }
 
   const html = `
     <div class="mb-3">
       <strong>Generic Name:</strong>
-      <span>${med.genericName || "N/A"}</span>
+      <span>${genericName}</span>
     </div>
 
     <div class="mb-3">
       <strong>Category:</strong>
-      <span>${med.category || "N/A"}</span>
+      <span>${category}</span>
     </div>
 
     <div class="mb-3">
       <strong>Uses:</strong>
-      <ul>${listItems(med.uses)}</ul>
+      <ul>${listItems(uses)}</ul>
     </div>
 
     <div class="mb-3">
       <strong>Symptoms:</strong>
-      <ul>${listItems(med.symptoms)}</ul>
+      <ul>${listItems(symptoms)}</ul>
     </div>
 
     <div class="mb-3">
       <strong>How to use:</strong>
-      <p>${med.howToUse || "N/A"}</p>
+      <p>${howToUse}</p>
     </div>
 
     <div class="mb-3 text-warning">
       <strong>Warnings:</strong>
-      <ul>${listItems(med.warnings)}</ul>
+      <ul>${listItems(warnings)}</ul>
     </div>
 
     <div class="mb-3">
       <strong>Side Effects:</strong>
-      <ul>${listItems(med.sideEffects)}</ul>
+      <ul>${listItems(sideEffects)}</ul>
     </div>
   `;
 
-  originalEnglishHTML = html; // ⭐ store original
   document.getElementById("medInfo").innerHTML = html;
 }
 
+/***********************
+ * LANGUAGE SWITCH
+ ***********************/
+async function changeLanguage() {
+  const lang = document.getElementById("langSelect").value;
 
+  if (!originalMedicineData) return;
+
+  disableLanguageControls();
+
+  try {
+    await renderMedicineDetails(originalMedicineData, lang);
+  } catch (err) {
+    alert("Translation failed. Please try again.");
+    console.error(err);
+  }
+
+  enableLanguageControls();
+}
+
+/***********************
+ * ALTERNATIVES
+ ***********************/
 function renderAlternatives(alternatives) {
   const container = document.querySelector(".row.g-3.mt-1");
+  const section = document.getElementById("alternativesSection");
+
+  // Hide alternatives section for non-logged-in users
+  if (!AuthConfig.isLoggedIn) {
+    section.style.display = "none";
+    return;
+  }
+
+  section.style.display = "block";
   container.innerHTML = "";
 
   if (!alternatives.length) {
@@ -147,41 +260,22 @@ function renderAlternatives(alternatives) {
   });
 }
 
+/***********************
+ * UTILS
+ ***********************/
 function listItems(arr = []) {
   if (!arr.length) return "<li>Not available</li>";
   return arr.map((i) => `<li>${i}</li>`).join("");
 }
 
-// Language switch (future-ready)
-async function changeLanguage() {
-  const lang = document.getElementById("langSelect").value;
-  const medInfo = document.getElementById("medInfo");
-
-  // Always restore English first
-  medInfo.innerHTML = originalEnglishHTML;
-
-  if (lang === "en") return;
-
-  disableLanguageControls();
-
-  try {
-    const plainText = medInfo.innerText;
-    const translated = await translateTextLibre(plainText, "hi");
-    medInfo.innerText = translated;
-  } catch (err) {
-    alert("Hindi translation failed. Please try again.");
-  }
-
-  enableLanguageControls();
-}
-
-// Text-to-speech
+/***********************
+ * TEXT TO SPEECH
+ ***********************/
 function speakDetails() {
   const lang = document.getElementById("langSelect").value;
   const text = document.getElementById("medInfo").innerText;
 
   const speech = new SpeechSynthesisUtterance(text);
-
   speech.lang = lang === "hi" ? "hi-IN" : "en-IN";
 
   window.speechSynthesis.cancel();

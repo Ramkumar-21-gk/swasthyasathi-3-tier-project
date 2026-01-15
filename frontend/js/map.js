@@ -15,7 +15,7 @@ function initMap() {
 
   fetchMedicalStores(19.076, 72.8777);
 }
-// Search location using OpenStreetMap Nominatim (FREE)
+// Search location using OpenStreetMap Nominatim 
 function searchLocation(query) {
   const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
     query

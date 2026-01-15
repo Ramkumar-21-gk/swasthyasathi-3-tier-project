@@ -19,6 +19,13 @@
   <h2 class="fw-bold">Scan Medicine & View Details</h2>
   <p class="text-secondary">Scan or search medicine and see information, price & alternatives</p>
 
+  <!-- Non-logged-in user warning -->
+  <div id="scanLimitWarning" class="alert alert-warning alert-dismissible fade show" role="alert" style="display: none;">
+    <strong>⚠️ Scan Limit:</strong> You have used <span id="scanCountDisplay">0</span>/3 free scans. 
+    <a href="login.html" class="alert-link">Login or register</a> for unlimited scans and exclusive features!
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+
   <div class="row g-4 mt-2">
 
     <!-- LEFT — SCAN / SEARCH -->
@@ -60,6 +67,7 @@
                     >
               <option value="en">English</option>
               <option value="hi">Hindi</option>
+              <option value="ur">Urdu</option>
             </select>
 
             <!-- Listen Button -->
@@ -91,62 +99,92 @@
 
 
   <!-- CHEAPER ALTERNATIVES -->
-  <h4 class="fw-bold mt-5">Cheaper Medicine Alternatives</h4>
-  <p class="text-secondary">Same salt — lower price — generic options</p>
+  <div id="alternativesSection">
+    <h4 class="fw-bold mt-5">Cheaper Medicine Alternatives</h4>
+    <p class="text-secondary">Same salt — lower price — generic options</p>
 
-  <div class="row g-3 mt-1">
+    <div class="row g-3 mt-1" id="alternativesContainer">
 
-    <div class="col-md-3">
-      <div class="alt-card">
-        <img src="https://via.placeholder.com/200x140" class="alt-img">
-        <h6 class="fw-bold mt-2">Generic Paracetamol 500mg</h6>
-        <p class="text-success fw-bold mb-1">₹28 (Strip of 10)</p>
-        <small class="text-secondary">Cheaper alternative</small>
+      <div class="col-md-3">
+        <div class="alt-card">
+          <img src="https://via.placeholder.com/200x140" class="alt-img">
+          <h6 class="fw-bold mt-2">Generic Paracetamol 500mg</h6>
+          <p class="text-success fw-bold mb-1">₹28 (Strip of 10)</p>
+          <small class="text-secondary">Cheaper alternative</small>
+        </div>
       </div>
-    </div>
 
-    <div class="col-md-3">
-      <div class="alt-card">
-        <img src="https://via.placeholder.com/200x140" class="alt-img">
-        <h6 class="fw-bold mt-2">PCM Relief Tablets</h6>
-        <p class="text-success fw-bold mb-1">₹32</p>
-        <small class="text-secondary">Generic substitute</small>
+      <div class="col-md-3">
+        <div class="alt-card">
+          <img src="https://via.placeholder.com/200x140" class="alt-img">
+          <h6 class="fw-bold mt-2">PCM Relief Tablets</h6>
+          <p class="text-success fw-bold mb-1">₹32</p>
+          <small class="text-secondary">Generic substitute</small>
+        </div>
       </div>
-    </div>
 
-    <div class="col-md-3">
-      <div class="alt-card">
-        <img src="https://via.placeholder.com/200x140" class="alt-img">
-        <h6 class="fw-bold mt-2">ParaCare 500</h6>
-        <p class="text-success fw-bold mb-1">₹30</p>
-        <small class="text-secondary">Low-cost alternative</small>
+      <div class="col-md-3">
+        <div class="alt-card">
+          <img src="https://via.placeholder.com/200x140" class="alt-img">
+          <h6 class="fw-bold mt-2">ParaCare 500</h6>
+          <p class="text-success fw-bold mb-1">₹30</p>
+          <small class="text-secondary">Low-cost alternative</small>
+        </div>
       </div>
-    </div>
 
-    <div class="col-md-3">
-      <div class="alt-card">
-        <img src="https://via.placeholder.com/200x140" class="alt-img">
-        <h6 class="fw-bold mt-2">MediPar 500</h6>
-        <p class="text-success fw-bold mb-1">₹26</p>
-        <small class="text-secondary">Affordable option</small>
+      <div class="col-md-3">
+        <div class="alt-card">
+          <img src="https://via.placeholder.com/200x140" class="alt-img">
+          <h6 class="fw-bold mt-2">MediPar 500</h6>
+          <p class="text-success fw-bold mb-1">₹26</p>
+          <small class="text-secondary">Affordable option</small>
+        </div>
       </div>
-    </div>
 
+    </div>
   </div>
 
 </div>
 
 <div id="footer"></div>
 
+<script src="../js/auth.config.js"></script>
 <script src="../js/medicine.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+  // Load navbar and update it
   fetch("navbar.html")
     .then(res => res.text())
-    .then(data => document.getElementById("navbar").innerHTML = data);
+    .then(data => {
+      document.getElementById("navbar").innerHTML = data;
+      // Call updateNavbar after navbar injection
+      setTimeout(() => {
+        if (typeof window.updateNavbar === 'function') {
+          window.updateNavbar();
+        }
+      }, 150);
+    });
+  
   fetch("footer.html")
     .then(r => r.text())
     .then(html => document.getElementById("footer").innerHTML = html);
+
+  // Initialize scan limit UI
+  function updateScanLimitUI() {
+    const warning = document.getElementById('scanLimitWarning');
+    const counter = document.getElementById('scanCountDisplay');
+    
+    if (!AuthConfig.isLoggedIn) {
+      warning.style.display = 'block';
+      counter.textContent = AuthConfig.scanCount;
+    } else {
+      warning.style.display = 'none';
+    }
+  }
+  
+  updateScanLimitUI();
+  window.addEventListener('storage', updateScanLimitUI);
+</script>
 </script>
 
 </body>
