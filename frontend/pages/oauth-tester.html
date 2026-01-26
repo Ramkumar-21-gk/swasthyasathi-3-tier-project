@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OAuth Credentials Tester</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+
+      .container {
+        background: white;
+        border-radius: 15px;
+        padding: 40px;
+        max-width: 600px;
+        width: 100%;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      }
+
+      h1 {
+        color: #333;
+        margin-bottom: 10px;
+        text-align: center;
+      }
+
+      .subtitle {
+        text-align: center;
+        color: #666;
+        margin-bottom: 30px;
+        font-size: 14px;
+      }
+
+      .section {
+        margin-bottom: 30px;
+        padding: 20px;
+        border: 2px solid #f0f0f0;
+        border-radius: 10px;
+        background: #fafafa;
+      }
+
+      .section h2 {
+        font-size: 16px;
+        color: #333;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .section h2 .icon {
+        font-size: 20px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 13px;
+        color: #666;
+        font-weight: 500;
+      }
+
+      input {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 13px;
+        margin-bottom: 15px;
+        font-family: "Courier New", monospace;
+        transition: all 0.3s ease;
+      }
+
+      input:focus {
+        outline: none;
+        border-color: #667eea;
+        background: #f8f9ff;
+      }
+
+      .button-group {
+        display: flex;
+        gap: 10px;
+        margin-top: 15px;
+      }
+
+      button {
+        flex: 1;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 14px;
+        transition: all 0.3s ease;
+      }
+
+      .btn-test {
+        background: #667eea;
+        color: white;
+      }
+
+      .btn-test:hover {
+        background: #5568d3;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+      }
+
+      .btn-clear {
+        background: #f0f0f0;
+        color: #333;
+      }
+
+      .btn-clear:hover {
+        background: #e0e0e0;
+      }
+
+      .status {
+        margin-top: 20px;
+        padding: 15px;
+        border-radius: 8px;
+        font-size: 13px;
+        display: none;
+      }
+
+      .status.show {
+        display: block;
+      }
+
+      .status.success {
+        background: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+      }
+
+      .status.error {
+        background: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+      }
+
+      .status.warning {
+        background: #fff3cd;
+        color: #856404;
+        border: 1px solid #ffeeba;
+      }
+
+      .info-box {
+        background: #e7f3ff;
+        border-left: 4px solid #2196f3;
+        padding: 15px;
+        border-radius: 5px;
+        margin-top: 20px;
+        font-size: 13px;
+        color: #0c3a6f;
+        line-height: 1.6;
+      }
+
+      .info-box strong {
+        color: #0c3a6f;
+      }
+
+      .divider {
+        text-align: center;
+        margin: 30px 0;
+        position: relative;
+        color: #ccc;
+      }
+
+      .copy-btn {
+        background: #f0f0f0;
+        border: 1px solid #ddd;
+        padding: 8px 12px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 12px;
+        float: right;
+        margin-top: -35px;
+        transition: all 0.3s ease;
+      }
+
+      .copy-btn:hover {
+        background: #667eea;
+        color: white;
+        border-color: #667eea;
+      }
+
+      .next-steps {
+        background: #f0f9ff;
+        border-left: 4px solid #0ea5e9;
+        padding: 15px;
+        border-radius: 5px;
+        margin-top: 20px;
+        font-size: 13px;
+      }
+
+      .next-steps h3 {
+        color: #0369a1;
+        margin-bottom: 10px;
+        font-size: 14px;
+      }
+
+      .next-steps ol {
+        margin-left: 20px;
+        color: #333;
+        line-height: 1.8;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🔐 OAuth Credentials Tester</h1>
+      <p class="subtitle">Test your Google and Facebook OAuth credentials</p>
+
+      <!-- Google Section -->
+      <div class="section">
+        <h2><span class="icon">🔴</span> Google Client ID</h2>
+        <label for="googleId">Paste your Google Client ID:</label>
+        <input
+          id="googleId"
+          type="text"
+          placeholder="123456789-abcdefghijk.apps.googleusercontent.com"
+          autocomplete="off"
+        />
+        <div class="button-group">
+          <button class="btn-test" onclick="testGoogle()">Test Google</button>
+          <button class="btn-clear" onclick="clearGoogle()">Clear</button>
+        </div>
+        <div id="googleStatus" class="status"></div>
+      </div>
+
+      <div class="divider">───────</div>
+
+      <!-- Facebook Section -->
+      <div class="section">
+        <h2><span class="icon">🔵</span> Facebook App ID</h2>
+        <label for="facebookId">Paste your Facebook App ID:</label>
+        <input
+          id="facebookId"
+          type="text"
+          placeholder="987654321012345"
+          autocomplete="off"
+        />
+        <div class="button-group">
+          <button class="btn-test" onclick="testFacebook()">
+            Test Facebook
+          </button>
+          <button class="btn-clear" onclick="clearFacebook()">Clear</button>
+        </div>
+        <div id="facebookStatus" class="status"></div>
+      </div>
+
+      <!-- Info Box -->
+      <div class="info-box">
+        <strong>💡 Tip:</strong> After testing, copy these values to your
+        <code>frontend/js/oauth.js</code> file on lines 17 and 21.
+      </div>
+
+      <!-- Next Steps -->
+      <div class="next-steps">
+        <h3>📋 Next Steps:</h3>
+        <ol>
+          <li>Paste your Google Client ID above and click "Test Google"</li>
+          <li>Paste your Facebook App ID above and click "Test Facebook"</li>
+          <li>If tests pass ✅, copy values to <code>oauth.js</code></li>
+          <li>Hard refresh browser (Ctrl+F5)</li>
+          <li>Go to login page and test OAuth buttons</li>
+        </ol>
+      </div>
+    </div>
+
+    <script>
+      function testGoogle() {
+        const googleId = document.getElementById("googleId").value.trim();
+        const status = document.getElementById("googleStatus");
+
+        status.classList.remove("show", "success", "error", "warning");
+
+        if (!googleId) {
+          status.textContent = "❌ Please paste your Google Client ID";
+          status.classList.add("show", "error");
+          return;
+        }
+
+        if (googleId.includes("YOUR_")) {
+          status.textContent =
+            "❌ Still using placeholder text. Replace with real ID.";
+          status.classList.add("show", "error");
+          return;
+        }
+
+        if (!googleId.includes("apps.googleusercontent.com")) {
+          status.textContent =
+            "⚠️ ID format looks wrong. Should end with 'apps.googleusercontent.com'";
+          status.classList.add("show", "warning");
+          return;
+        }
+
+        if (googleId.split("-").length < 2) {
+          status.textContent =
+            "⚠️ ID format looks incomplete. Should have dashes and numbers.";
+          status.classList.add("show", "warning");
+          return;
+        }
+
+        status.innerHTML =
+          "✅ Google Client ID looks valid! <br><br>Next: Copy to <code>oauth.js</code> line 17";
+        status.classList.add("show", "success");
+      }
+
+      function testFacebook() {
+        const facebookId = document.getElementById("facebookId").value.trim();
+        const status = document.getElementById("facebookStatus");
+
+        status.classList.remove("show", "success", "error", "warning");
+
+        if (!facebookId) {
+          status.textContent = "❌ Please paste your Facebook App ID";
+          status.classList.add("show", "error");
+          return;
+        }
+
+        if (facebookId.includes("YOUR_")) {
+          status.textContent =
+            "❌ Still using placeholder text. Replace with real ID.";
+          status.classList.add("show", "error");
+          return;
+        }
+
+        if (isNaN(facebookId) || facebookId.length < 10) {
+          status.textContent =
+            "⚠️ App ID should be 12-15 digits (only numbers)";
+          status.classList.add("show", "warning");
+          return;
+        }
+
+        status.innerHTML =
+          "✅ Facebook App ID looks valid! <br><br>Next: Copy to <code>oauth.js</code> line 21";
+        status.classList.add("show", "success");
+      }
+
+      function clearGoogle() {
+        document.getElementById("googleId").value = "";
+        document.getElementById("googleStatus").classList.remove("show");
+      }
+
+      function clearFacebook() {
+        document.getElementById("facebookId").value = "";
+        document.getElementById("facebookStatus").classList.remove("show");
+      }
+
+      // Allow Enter key to test
+      document.getElementById("googleId").addEventListener("keypress", (e) => {
+        if (e.key === "Enter") testGoogle();
+      });
+
+      document
+        .getElementById("facebookId")
+        .addEventListener("keypress", (e) => {
+          if (e.key === "Enter") testFacebook();
+        });
+    </script>
+  </body>
+</html>

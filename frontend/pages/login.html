@@ -3,130 +3,182 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login / Register</title>
+    <title>SwasthyaSathi | Login / Register</title>
+
+    <!-- Main CSS -->
     <link rel="stylesheet" href="../css/auth.css" />
+
+    <!-- Google Font -->
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Poppins:400,500,600&display=swap"
     />
+
+    <!-- Font Awesome -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
     />
   </head>
+
   <body>
-    <div class="container">
-      <div class="form-box">
-        <h1 class="title" id="form-title">Sign In</h1>
-        <div class="underline"></div>
+    <!-- ✅ MAIN WRAPPER -->
+    <div class="auth-wrapper">
 
-        <!-- Global message area -->
-        <div
-          id="auth-message"
-          class="auth-message"
-          role="alert"
-          aria-live="polite"
-        ></div>
+      <!-- ✅ LEFT BRANDING SIDE -->
+      <div class="auth-left">
+        <div class="brand-content">
+          <h1>
+            Welcome to <span>SwasthyaSathi</span>
+          </h1>
 
-        <!-- Login Form -->
-        <form id="login-form" novalidate>
-          <div class="input-group">
-            <div class="input-field">
-              <i class="fa-solid fa-at" aria-hidden="true"></i>
-              <label for="login-email" class="visually-hidden"></label>
-              <input
-                id="login-email"
-                name="email"
-                type="email"
-                placeholder="Email"
-                required
-              />
-            </div>
+          <p>
+            Medicine Scanner & AI Health Assistant  
+            for smarter, safer and stress-free healthcare support.
+          </p>
 
-            <div class="input-field">
-              <i class="fa-solid fa-key" aria-hidden="true"></i>
-              <label for="login-password" class="visually-hidden"></label>
-              <input
-                id="login-password"
-                name="password"
-                type="password"
-                placeholder="Password"
-                required
-              />
-            </div>
-
-            <p>
-              <span class="text">Lost Password</span>
-              <a href="#" aria-disabled="true">Coming soon</a>
-            </p>
+          <div class="brand-image">
+            <img
+              src="../assets/images/health-preview.png"
+              alt="SwasthyaSathi Preview"
+            />
           </div>
-          <div class="btn-field">
-            <button id="login-submit" type="submit" class="signinbtn">
-              Sign in
-            </button>
-            <button id="show-register-btn" type="button" class="signupbtn">
-              Create account
-            </button>
-          </div>
-        </form>
+        </div>
+      </div>
 
-        <!-- Register Form -->
-        <form id="register-form" hidden novalidate>
-          <div class="input-group">
-            <div class="input-field namefield">
-              <i class="fa-solid fa-user" aria-hidden="true"></i>
-              <label for="register-name" class="visually-hidden"></label>
-              <input
-                id="register-name"
-                name="name"
-                type="text"
-                placeholder="Name"
-                required
-              />
+      <!-- ✅ RIGHT FORM SIDE -->
+      <div class="auth-right">
+        <div class="form-box">
+
+          <!-- Title -->
+          <h1 class="title" id="form-title">Sign In</h1>
+          <div class="underline"></div>
+
+          <!-- Global message -->
+          <div
+            id="auth-message"
+            class="auth-message"
+            role="alert"
+            aria-live="polite"
+          ></div>
+
+          <!-- ✅ LOGIN FORM (UNCHANGED IDs) -->
+          <form id="login-form" novalidate>
+            <div class="input-group">
+
+              <div class="input-field">
+                <i class="fa-solid fa-at"></i>
+                <input
+                  id="login-email"
+                  name="email"
+                  type="email"
+                  placeholder="Email"
+                  required
+                />
+              </div>
+
+              <div class="input-field">
+                <i class="fa-solid fa-key"></i>
+                <input
+                  id="login-password"
+                  name="password"
+                  type="password"
+                  placeholder="Password"
+                  required
+                />
+              </div>
+
+              <p>
+                <span class="text">Lost Password?</span>
+                <a href="#">Coming soon</a>
+              </p>
             </div>
 
-            <div class="input-field">
-              <i class="fa-solid fa-at" aria-hidden="true"></i>
-              <label for="register-email" class="visually-hidden"></label>
-              <input
-                id="register-email"
-                name="email"
-                type="email"
-                placeholder="Email"
-                required
-              />
+            <!-- Buttons -->
+            <div class="btn-field">
+              <button id="login-submit" type="submit">
+                Sign In
+              </button>
+              <button id="show-register-btn" type="button">
+                Create Account
+              </button>
             </div>
 
-            <div class="input-field">
-              <i class="fa-solid fa-key" aria-hidden="true"></i>
-              <label for="register-password" class="visually-hidden"></label>
-              <input
-                id="register-password"
-                name="password"
-                type="password"
-                placeholder="Password"
-                required
-              />
+            <!-- ✅ Social Login -->
+            <div class="social-login">
+              <p class="social-text">Or continue with</p>
+
+              <div class="social-buttons">
+                <button type="button" class="google-btn">
+                  <i class="fa-brands fa-google"></i>
+                  Google
+                </button>
+
+                <button type="button" class="facebook-btn">
+                  <i class="fa-brands fa-facebook-f"></i>
+                  Facebook
+                </button>
+              </div>
+            </div>
+          </form>
+
+          <!-- ✅ REGISTER FORM (UNCHANGED IDs) -->
+          <form id="register-form" hidden novalidate>
+            <div class="input-group">
+
+              <div class="input-field">
+                <i class="fa-solid fa-user"></i>
+                <input
+                  id="register-name"
+                  name="name"
+                  type="text"
+                  placeholder="Full Name"
+                  required
+                />
+              </div>
+
+              <div class="input-field">
+                <i class="fa-solid fa-at"></i>
+                <input
+                  id="register-email"
+                  name="email"
+                  type="email"
+                  placeholder="Email"
+                  required
+                />
+              </div>
+
+              <div class="input-field">
+                <i class="fa-solid fa-key"></i>
+                <input
+                  id="register-password"
+                  name="password"
+                  type="password"
+                  placeholder="Password"
+                  required
+                />
+              </div>
+
+              <p>
+                <span class="text">Password Help</span>
+                <a href="#">Coming soon</a>
+              </p>
             </div>
 
-            <p>
-              <span class="text">Password Suggestion</span>
-              <a href="#" aria-disabled="true">Coming soon</a>
-            </p>
-          </div>
-          <div class="btn-field">
-            <button id="register-submit" type="submit" class="signupbtn">
-              Sign up
-            </button>
-            <button id="show-login-btn" type="button" class="signinbtn">
-              Already have an account
-            </button>
-          </div>
-        </form>
+            <div class="btn-field">
+              <button id="register-submit" type="submit">
+                Sign Up
+              </button>
+              <button id="show-login-btn" type="button">
+                Already have an account?
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
 
-    <!-- App scripts -->
+    <!-- ✅ Scripts (Backend Safe) -->
     <script src="../js/auth.config.js"></script>
     <script src="../js/auth.js"></script>
   </body>

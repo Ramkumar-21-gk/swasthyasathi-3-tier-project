@@ -6,37 +6,74 @@
   font-family: "Poppins", sans-serif;
 }
 
-/* ================= BACKGROUND ================= */
-.container {
+/* ================= MAIN LAYOUT ================= */
+.auth-wrapper {
   width: 100%;
   height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
-
-  background:
-    linear-gradient(135deg, rgba(15, 81, 50, 0.85), rgba(25, 135, 84, 0.85)),
-    url("../assets/images/login-background.jpg");
-  background-size: cover;
-  background-position: center;
+  overflow: hidden;
 }
 
-/* ================= AUTH CARD ================= */
+/* ================= LEFT BRAND PANEL ================= */
+.auth-left {
+  flex: 1;
+  background: radial-gradient(circle at top, #198754, #07130e);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px;
+}
+
+.brand-content {
+  max-width: 520px;
+}
+
+.brand-content h1 {
+  font-size: 52px;
+  font-weight: 700;
+}
+
+.brand-content h1 span {
+  color: #20c997;
+}
+
+.brand-content p {
+  margin-top: 18px;
+  font-size: 18px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.brand-image {
+  margin-top: 40px;
+}
+
+.brand-image img {
+  width: 100%;
+  max-width: 320px;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+/* ================= RIGHT FORM PANEL ================= */
+.auth-right {
+  flex: 1;
+  background: #07130e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ================= FORM CARD ================= */
 .form-box {
   width: 100%;
   max-width: 460px;
   padding: 48px 44px;
-
   background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(10px);
-
   border-radius: 16px;
   text-align: center;
-
-  box-shadow:
-    0 20px 40px rgba(0, 0, 0, 0.25),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
-
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
   animation: fadeUp 0.6s ease;
 }
 
@@ -57,163 +94,141 @@
   font-size: 30px;
   font-weight: 700;
   color: #0f5132;
-  letter-spacing: 0.3px;
 }
 
-/* Underline */
 .underline {
   width: 48px;
   height: 4px;
   background: linear-gradient(to right, #198754, #20c997);
-  margin: 12px auto 34px;
+  margin: 12px auto 30px;
   border-radius: 3px;
-  transition: transform 0.4s ease;
 }
 
-/* ================= INPUT GROUP ================= */
-.input-group {
-  margin-top: 10px;
-}
-
-/* Input container */
+/* ================= INPUTS ================= */
 .input-field {
   background: #f8fafc;
   border-radius: 12px;
   margin: 14px 0;
-
   display: flex;
   align-items: center;
   border: 1px solid #d1d9e6;
-
-  transition: all 0.3s ease;
+  transition: 0.3s;
 }
 
-/* Icon */
 .input-field i {
   margin-left: 16px;
-  font-size: 15px;
   color: #6b7280;
-  transition: color 0.3s ease;
 }
 
-/* Input */
 .input-field input {
   width: 100%;
   padding: 16px 14px;
   border: none;
   outline: none;
   background: transparent;
-  font-size: 15px;
-  color: #0f172a;
 }
 
-/* Focus state */
 .input-field:focus-within {
   border-color: #198754;
   background: #eefaf3;
   box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.15);
 }
 
-.input-field:focus-within i {
-  color: #198754;
-}
-
-/* ================= HELPER TEXT ================= */
 form p {
   font-size: 13px;
-  margin-top: 6px;
   text-align: left;
-  color: #1f2937;
-}
-
-form p a {
-  color: #198754;
-  font-weight: 500;
-  text-decoration: none;
-}
-
-form p a:hover {
-  text-decoration: underline;
+  margin-top: 6px;
 }
 
 /* ================= BUTTONS ================= */
 .btn-field {
   display: flex;
-  justify-content: space-between;
-  margin-top: 22px;
   gap: 12px;
+  margin-top: 20px;
 }
 
 .btn-field button {
   flex: 1;
   height: 44px;
-
   border-radius: 12px;
   border: none;
   cursor: pointer;
-
   font-size: 14px;
   font-weight: 600;
-  letter-spacing: 0.3px;
-
   background: linear-gradient(135deg, #198754, #20c997);
-  color: #ffffff;
-
-  box-shadow: 0 6px 14px rgba(25, 135, 84, 0.35);
-  transition: all 0.25s ease;
+  color: white;
+  transition: 0.25s;
 }
 
-/* Hover */
 .btn-field button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 22px rgba(25, 135, 84, 0.45);
 }
 
-/* Active */
-.btn-field button:active {
-  transform: translateY(0);
+/* ================= SOCIAL LOGIN ================= */
+.social-login {
+  margin-top: 28px;
 }
 
-/* Disabled */
-button:disabled {
-  background: #e5e7eb;
-  color: #6b7280;
-  box-shadow: none;
-  cursor: not-allowed;
-}
-
-/* ================= AUTH MESSAGE ================= */
-.auth-message {
-  display: none;
-  padding: 10px 12px;
-  border-radius: 10px;
+.social-text {
   font-size: 13px;
   margin-bottom: 14px;
+  color: #374151;
 }
 
-.auth-message.success {
-  display: block;
-  background: #e7f7ec;
-  color: #0f5132;
-  border: 1px solid #9dd8b3;
+.social-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.auth-message.error {
-  display: block;
-  background: #fde2e1;
-  color: #7f1d1d;
-  border: 1px solid #f5a5a4;
+.social-buttons button {
+  width: 100%;
+  height: 46px;
+  border-radius: 12px;
+  border: 1px solid #d1d9e6;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  transition: 0.3s;
 }
 
-/* ================= MOBILE ================= */
-@media (max-width: 480px) {
-  .form-box {
-    padding: 36px 26px;
-    border-radius: 14px;
+.google-btn i {
+  color: #ea4335;
+}
+
+.facebook-btn i {
+  color: #1877f2;
+}
+
+.social-buttons button:hover {
+  background: #f9fafb;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 900px) {
+  .auth-wrapper {
+    flex-direction: column;
+  }
+
+  .auth-left {
+    text-align: center;
+    padding: 30px;
+  }
+
+  .brand-content h1 {
+    font-size: 34px;
+  }
+
+  .auth-right {
+    padding: 25px;
   }
 
   .btn-field {
     flex-direction: column;
   }
 }
-
