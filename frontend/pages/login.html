@@ -11,7 +11,7 @@
     <!-- Google Font -->
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Poppins:400,500,600&display=swap"
+      href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800&display=swap"
     />
 
     <!-- Font Awesome -->
@@ -19,6 +19,9 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
     />
+
+    <!-- Lottie Animation -->
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   </head>
 
   <body>
@@ -28,20 +31,23 @@
       <!-- ✅ LEFT BRANDING SIDE -->
       <div class="auth-left">
         <div class="brand-content">
-          <h1>
-            Welcome to <span>SwasthyaSathi</span>
-          </h1>
+          <h1>Welcome to <span>SwasthyaSathi</span></h1>
 
           <p>
             Medicine Scanner & AI Health Assistant  
             for smarter, safer and stress-free healthcare support.
           </p>
 
-          <div class="brand-image">
-            <img
-              src="../assets/images/health-preview.png"
-              alt="SwasthyaSathi Preview"
-            />
+          <!-- ✅ LOTTIE DOCTOR AI ANIMATION -->
+          <div class="lottie-box">
+            <lottie-player
+              src="https://assets10.lottiefiles.com/packages/lf20_jcikwtux.json"
+              background="transparent"
+              speed="1"
+              style="width: 300px; height: 300px;"
+              loop
+              autoplay>
+            </lottie-player>
           </div>
         </div>
       </div>
@@ -62,7 +68,7 @@
             aria-live="polite"
           ></div>
 
-          <!-- ✅ LOGIN FORM (UNCHANGED IDs) -->
+          <!-- ✅ LOGIN FORM (IDs SAFE) -->
           <form id="login-form" novalidate>
             <div class="input-group">
 
@@ -89,7 +95,7 @@
               </div>
 
               <p>
-                <span class="text">Lost Password?</span>
+                <span>Lost Password?</span>
                 <a href="#">Coming soon</a>
               </p>
             </div>
@@ -99,6 +105,7 @@
               <button id="login-submit" type="submit">
                 Sign In
               </button>
+
               <button id="show-register-btn" type="button">
                 Create Account
               </button>
@@ -111,18 +118,18 @@
               <div class="social-buttons">
                 <button type="button" class="google-btn">
                   <i class="fa-brands fa-google"></i>
-                  Google
+                  Continue with Google
                 </button>
 
                 <button type="button" class="facebook-btn">
                   <i class="fa-brands fa-facebook-f"></i>
-                  Facebook
+                  Continue with Facebook
                 </button>
               </div>
             </div>
           </form>
 
-          <!-- ✅ REGISTER FORM (UNCHANGED IDs) -->
+          <!-- ✅ REGISTER FORM (IDs SAFE) -->
           <form id="register-form" hidden novalidate>
             <div class="input-group">
 
@@ -160,7 +167,7 @@
               </div>
 
               <p>
-                <span class="text">Password Help</span>
+                <span>Password Help</span>
                 <a href="#">Coming soon</a>
               </p>
             </div>
@@ -169,6 +176,7 @@
               <button id="register-submit" type="submit">
                 Sign Up
               </button>
+
               <button id="show-login-btn" type="button">
                 Already have an account?
               </button>
