@@ -1,4 +1,17 @@
-# Node.js
+# Tesseract OCR language data (auto-downloaded / cache)
+*.traineddata
+backend/eng.traineddata
+tessdata/
+
+# Node
+node_modules/
+.env
+npm-debug.log*
+
+# Build output
+dist/
+build/
+coverage/# Node.js
 node_modules/
 npm-debug.log*
 npm-error.log*

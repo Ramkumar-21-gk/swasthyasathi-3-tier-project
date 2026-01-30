@@ -34,9 +34,10 @@
 
         <h5 class="fw-bold mb-3">Scan / Search Medicine</h5>
 
-        <button class="btn btn-primary w-100 mb-3">
-          📷 Scan Medicine Barcode
+        <button class="btn btn-primary w-100 mb-3" onclick="openPrescriptionPicker()">
+          📷 Scan Prescription (Image)
         </button>
+        <input type="file" id="prescriptionImage" accept="image/*" style="display:none" onchange="handlePrescriptionUpload(event)">
 
         <input type="text" id="searchBox" class="form-control mb-3"
                placeholder="Search medicine name">
@@ -58,6 +59,10 @@
           <h5 class="fw-bold mb-0">Medicine Details</h5>
 
           <div class="d-flex gap-2">
+            <!-- Back to list -->
+            <button class="btn btn-sm btn-outline-secondary" id="backToListBtn" style="display:none" onclick="backToDetectedList()">
+              ⬅️ Back to list
+            </button>
 
             <!-- Language Switch -->
             <select id="langSelect"
@@ -91,6 +96,9 @@
           <p id="medInfo" class="translate-me"></p>
 
         </div>
+
+        <!-- Multiple results from prescription scan -->
+        <div id="multiResults" style="display:none;" class="mt-3"></div>
 
       </div>
     </div>
