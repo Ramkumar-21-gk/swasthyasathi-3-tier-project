@@ -44,28 +44,12 @@ const sanitizeAlternatives = (alternatives = []) => {
     }));
 };
 
-
-const getMedicineByName = async (inputName) => {
-
-  // 1️⃣ AI normalization
-  const normalized = await normalizeMedicineWithAI(inputName);
-
-  if (!normalized) {
-    throw new Error("Medicine not recognized");
-  }
-
-  const canonicalName =
-  normalized.genericName || normalized.canonicalName;
-
-  const normalizedKey = canonicalName.toLowerCase();
-
-  log("🔹 Canonical name:", canonicalName);
-  log("🔹 Normalized key:", normalizedKey);
-
+const checkDBorAI = async (normalizedKey, canonicalName) => {
+  const key = (normalizedKey || canonicalName || "").toLowerCase();
   // 2️⃣ DB lookup
-  const existing = await Medicine.findOne({ normalizedName: normalizedKey });
+  const existing = await Medicine.findOne({ normalizedName: key });
   if (existing) {
-    log("🟢 Medicine served from DB cache:", normalizedKey);
+    log("🟢 Medicine served from DB cache:", key);
     return existing;
   }
 
@@ -94,7 +78,7 @@ const getMedicineByName = async (inputName) => {
 
   // 4️⃣ Store once, correctly
   const medicine = await Medicine.create({
-    normalizedName: normalizedKey,
+    normalizedName: key,
     medicineName: parsed.medicineName,
     genericName: parsed.genericName,
     category: parsed.category,
@@ -109,5 +93,25 @@ const getMedicineByName = async (inputName) => {
   return medicine;
 };
 
+const getMedicineByName = async (inputName) => {
 
-module.exports = { getMedicineByName };
+  // 1️⃣ AI normalization
+  const normalized = await normalizeMedicineWithAI(inputName);
+
+  if (!normalized) {
+    throw new Error("Medicine not recognized");
+  }
+
+  const canonicalName =
+  normalized.genericName || normalized.canonicalName;
+
+  const normalizedKey = canonicalName.toLowerCase();
+
+  log("🔹 Canonical name:", canonicalName);
+  log("🔹 Normalized key:", normalizedKey);
+
+  return checkDBorAI(normalizedKey, canonicalName);
+};
+
+
+module.exports = { getMedicineByName, checkDBorAI };

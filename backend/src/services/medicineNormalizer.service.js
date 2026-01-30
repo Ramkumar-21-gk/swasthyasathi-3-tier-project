@@ -30,6 +30,12 @@ Rules:
 - Do NOT include dosage numbers
 - Do NOT explain anything outside JSON
 - If not a medicine, use "unknown" and confidence "low"
+- If input has more than one medicine then put there canonicalName and genericName in comma separated format like - 
+{
+  "canonicalName": "med1, med2, med3",
+  "genericName": "med1, med2, med3",
+  "confidence": "high | medium | low"
+}
 
 User input: "${input}"
 `;
