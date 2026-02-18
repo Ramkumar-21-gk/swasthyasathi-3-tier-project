@@ -1,12 +1,10 @@
-/***********************
- * GLOBAL STATE
- ***********************/
+// GLOBAL STATE
+
 let originalMedicineData = null;
 let lastPrescriptionResults = [];
 
-/***********************
- * UI HELPERS
- ***********************/
+//UI HELPERS
+
 function disableLanguageControls() {
   document.getElementById("langSelect").disabled = true;
   document.getElementById("listenBtn").disabled = true;
@@ -29,9 +27,8 @@ function updateScanLimitUI() {
   }
 }
 
-/***********************
- * LIBRETRANSLATE (SELF-HOSTED)
- ***********************/
+//LIBRETRANSLATE (SELF-HOSTED)
+
 async function translateTextLibre(text, targetLang) {
   const res = await fetch("http://localhost:5001/translate", {
     method: "POST",
@@ -54,9 +51,8 @@ async function translateTextLibre(text, targetLang) {
   return data.translatedText;
 }
 
-/***********************
- * BUILD TRANSLATION PAYLOAD
- ***********************/
+//BUILD TRANSLATION PAYLOAD
+
 function buildTranslationPayload(med) {
   return {
     genericName: med.genericName || "N/A",
@@ -73,9 +69,7 @@ async function translateArray(arr) {
   return Promise.all(arr.map((item) => translateTextLibre(item, "hi")));
 }
 
-/***********************
- * MAIN SEARCH FUNCTION
- ***********************/
+//MAIN SEARCH FUNCTION
 async function showMedicineDetails() {
   // Check scan limit for non-logged-in users
   if (!AuthConfig.isLoggedIn) {
@@ -132,9 +126,8 @@ async function showMedicineDetails() {
   enableLanguageControls();
 }
 
-/***********************
- * PRESCRIPTION SCAN (IMAGE UPLOAD)
- ***********************/
+//PRESCRIPTION SCAN (IMAGE UPLOAD)
+
 function openPrescriptionPicker() {
   const input = document.getElementById("prescriptionImage");
   if (input) input.click();
@@ -318,9 +311,7 @@ async function renderMedicineDetails(med, lang = "en") {
   document.getElementById("medInfo").innerHTML = html;
 }
 
-/***********************
- * LANGUAGE SWITCH
- ***********************/
+// LANGUAGE SWITCH
 async function changeLanguage() {
   const lang = document.getElementById("langSelect").value;
 
@@ -338,9 +329,7 @@ async function changeLanguage() {
   enableLanguageControls();
 }
 
-/***********************
- * ALTERNATIVES
- ***********************/
+//ALTERNATIVES
 function renderAlternatives(alternatives) {
   const container = document.querySelector(".row.g-3.mt-1");
   const section = document.getElementById("alternativesSection");
@@ -375,17 +364,13 @@ function renderAlternatives(alternatives) {
   });
 }
 
-/***********************
- * UTILS
- ***********************/
+//UTILS
 function listItems(arr = []) {
   if (!arr.length) return "<li>Not available</li>";
   return arr.map((i) => `<li>${i}</li>`).join("");
 }
 
-/***********************
- * TEXT TO SPEECH
- ***********************/
+// TEXT TO SPEECH
 function speakDetails() {
   const lang = document.getElementById("langSelect").value;
   const text = document.getElementById("medInfo").innerText;
