@@ -34,10 +34,33 @@
 
         <h5 class="fw-bold mb-3">Scan / Search Medicine</h5>
 
-        <button class="btn btn-primary w-100 mb-3" onclick="openPrescriptionPicker()">
-          📷 Scan Prescription (Image)
+        <button class="btn btn-primary w-100 mb-2" onclick="openCameraCapture()">
+        📷 Open Camera
         </button>
-        <input type="file" id="prescriptionImage" accept="image/*" style="display:none" onchange="handlePrescriptionUpload(event)">
+
+        <button class="btn btn-outline-primary w-100 mb-3" onclick="openGalleryPicker()">
+        🖼️ Upload Prescription Image
+        </button>
+
+        <!-- Mobile Camera input -->
+        <input 
+        type="file" 
+        id="cameraInput" 
+        accept="image/*" 
+        capture="environment"
+        style="display:none" 
+        onchange="handlePrescriptionUpload(event)"
+        >
+
+        <!-- Gallery input -->
+        <input 
+        type="file" 
+        id="galleryInput" 
+        accept="image/*" 
+        style="display:none" 
+        onchange="handlePrescriptionUpload(event)"
+        >
+
 
         <input type="text" id="searchBox" class="form-control mb-3"
                placeholder="Search medicine name">
@@ -155,6 +178,33 @@
 </div>
 
 <div id="footer"></div>
+<!-- Webcam Modal -->
+<div class="modal fade" id="cameraModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content" style="border-radius: 18px;">
+      
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold">📷 Capture Prescription</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="stopWebcam()"></button>
+      </div>
+
+      <div class="modal-body text-center">
+        <video id="webcamVideo" autoplay playsinline class="w-100 rounded"></video>
+        <canvas id="webcamCanvas" style="display:none;"></canvas>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-danger" onclick="stopWebcam()" data-bs-dismiss="modal">
+          ❌ Close
+        </button>
+        <button class="btn btn-success" onclick="captureWebcamPhoto()">
+          📸 Capture Photo
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 <script src="../js/auth.config.js"></script>
 <script src="../js/medicine.js"></script>

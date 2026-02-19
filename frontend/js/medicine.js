@@ -2,6 +2,7 @@
 
 let originalMedicineData = null;
 let lastPrescriptionResults = [];
+let webcamStream = null;
 
 //UI HELPERS
 
@@ -128,10 +129,122 @@ async function showMedicineDetails() {
 
 //PRESCRIPTION SCAN (IMAGE UPLOAD)
 
-function openPrescriptionPicker() {
-  const input = document.getElementById("prescriptionImage");
+// function openPrescriptionPicker() {
+//   const input = document.getElementById("prescriptionImage");
+//   if (input) input.click();
+// }
+
+function openCameraCapture() {
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+  if (isMobile) {
+    // Mobile: use camera file input
+    const input = document.getElementById("cameraInput");
+    if (input) input.click();
+  } else {
+    // Laptop: open webcam modal
+    openWebcamModal();
+  }
+}
+
+async function openWebcamModal() {
+  const modalEl = document.getElementById("cameraModal");
+  const modal = new bootstrap.Modal(modalEl);
+
+  modal.show();
+  await startWebcam();
+}
+
+async function startWebcam() {
+  const video = document.getElementById("webcamVideo");
+
+  try {
+    webcamStream = await navigator.mediaDevices.getUserMedia({
+      video: true
+    });
+
+    video.srcObject = webcamStream;
+  } catch (err) {
+    console.error("Webcam error:", err);
+    alert("Camera not accessible. Please allow camera permission.");
+  }
+}
+
+function stopWebcam() {
+  if (webcamStream) {
+    webcamStream.getTracks().forEach(track => track.stop());
+    webcamStream = null;
+  }
+}
+
+
+function openGalleryPicker() {
+  const input = document.getElementById("galleryInput");
   if (input) input.click();
 }
+async function startWebcam() {
+  const section = document.getElementById("webcamSection");
+  const video = document.getElementById("webcamVideo");
+
+  try {
+    webcamStream = await navigator.mediaDevices.getUserMedia({
+      video: true
+    });
+
+    video.srcObject = webcamStream;
+    section.style.display = "block";
+  } catch (err) {
+    console.error("Webcam error:", err);
+    alert("Camera not accessible. Please allow camera permission.");
+  }
+}
+
+function stopWebcam() {
+  const section = document.getElementById("webcamSection");
+
+  if (webcamStream) {
+    webcamStream.getTracks().forEach(track => track.stop());
+    webcamStream = null;
+  }
+
+  section.style.display = "none";
+}
+
+function captureWebcamPhoto() {
+  const video = document.getElementById("webcamVideo");
+  const canvas = document.getElementById("webcamCanvas");
+
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+
+  const ctx = canvas.getContext("2d");
+  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+  canvas.toBlob(async (blob) => {
+    if (!blob) return;
+
+    const file = new File([blob], "webcam-photo.jpg", { type: "image/jpeg" });
+
+    stopWebcam();
+
+    // Close modal
+    const modalEl = document.getElementById("cameraModal");
+    const modal = bootstrap.Modal.getInstance(modalEl);
+    if (modal) modal.hide();
+
+    // Reuse existing upload handler
+    const fakeEvent = {
+      target: { files: [file], value: "" }
+    };
+
+    await handlePrescriptionUpload(fakeEvent);
+  }, "image/jpeg", 0.9);
+}
+
+window.addEventListener("beforeunload", () => {
+  stopWebcam();
+});
+
 
 async function handlePrescriptionUpload(event) {
   const file = event.target.files && event.target.files[0];

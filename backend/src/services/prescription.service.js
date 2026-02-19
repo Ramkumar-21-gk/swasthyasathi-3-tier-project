@@ -45,8 +45,14 @@ const splitCSVNames = (line) => {
 };
 
 const ocrExtractText = async (buffer) => {
-  const { data } = await Tesseract.recognize(buffer, "eng");
-  return data.text || "";
+    try {
+      const { data } = await Tesseract.recognize(buffer, "eng");
+      return data.text || "";
+  } catch (err) {
+    console.error("OCR FAILED:", err);
+    throw err;
+  }
+
 };
 
 const processPrescriptionImage = async (buffer) => {
