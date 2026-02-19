@@ -183,7 +183,7 @@ function openGalleryPicker() {
   if (input) input.click();
 }
 async function startWebcam() {
-  const section = document.getElementById("webcamSection");
+  const section = document.getElementById("webcamVideo");
   const video = document.getElementById("webcamVideo");
 
   try {
@@ -200,7 +200,7 @@ async function startWebcam() {
 }
 
 function stopWebcam() {
-  const section = document.getElementById("webcamSection");
+  const section = document.getElementById("webcamVideo");
 
   if (webcamStream) {
     webcamStream.getTracks().forEach(track => track.stop());
