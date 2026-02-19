@@ -58,10 +58,14 @@ ready(() => {
   const loginSubmitBtn = document.getElementById("login-submit");
   const showRegisterBtn = document.getElementById("show-register-btn");
 
+
   const registerForm = document.getElementById("register-form");
   const registerName = document.getElementById("register-name");
   const registerEmail = document.getElementById("register-email");
   const registerPassword = document.getElementById("register-password");
+  const registerConfirmPassword = document.getElementById(
+    "register-confirm-password"
+  );
   const registerSubmitBtn = document.getElementById("register-submit");
   const showLoginBtn = document.getElementById("show-login-btn");
 
@@ -137,42 +141,54 @@ ready(() => {
     }
   });
 
-  registerForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    showMessage("");
-    const name = registerName.value.trim();
-    const email = registerEmail.value.trim();
-    const password = registerPassword.value.trim();
-    if (!name || !email || !password) {
-      showMessage("Please fill in all fields.", "error");
-      return;
-    }
+registerForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  showMessage("");
 
-    setSubmitting(registerSubmitBtn, true);
-    try {
-      const res = await apiRequest("/api/auth/register", "POST", {
-        name,
-        email,
-        password,
-      });
-      const user = res?.user || res;
-      const token = res?.token;
-      console.log("Registration success:", user);
+  const name = registerName.value.trim();
+  const email = registerEmail.value.trim();
+  const password = registerPassword.value.trim();
+  const confirmPassword = registerConfirmPassword.value.trim();
 
-      // Save user data and token to auth config
-      AuthConfig.setUser(user, token);
+  if (!name || !email || !password || !confirmPassword) {
+    showMessage("Please fill in all fields.", "error");
+    return;
+  }
 
-      showMessage("Registration successful. Redirecting...", "success");
-      // Redirect to home page after 1.5 seconds
-      setTimeout(() => {
-        window.location.href = "index.html";
-      }, 1500);
-    } catch (err) {
-      showMessage(err.message || "Registration failed.", "error");
-    } finally {
-      setSubmitting(registerSubmitBtn, false);
-    }
-  });
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!emailRegex.test(email)) {
+    showMessage("Please enter a valid email address.", "error");
+    return;
+  }
+
+  if (password !== confirmPassword) {
+    showMessage("Passwords do not match.", "error");
+    return;
+  }
+
+  setSubmitting(registerSubmitBtn, true);
+
+  try {
+    await apiRequest("/api/auth/register", "POST", {
+      name,
+      email,
+      password,
+    });
+
+    showMessage("Account created successfully. Please sign in.", "success");
+
+    registerForm.reset(); // optional but nice
+
+    setTimeout(() => {
+      showLogin(); // switch to Sign In form
+    }, 1500);
+  } catch (err) {
+    showMessage(err.message || "Registration failed.", "error");
+  } finally {
+    setSubmitting(registerSubmitBtn, false);
+  }
+});
 
   // Also hook buttons to trigger form submission (for explicit requirement)
   loginSubmitBtn.addEventListener("click", (e) => {

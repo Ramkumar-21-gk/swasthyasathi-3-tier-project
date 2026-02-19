@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -27,15 +27,14 @@
   <body>
     <!-- ✅ MAIN WRAPPER -->
     <div class="auth-wrapper">
-
       <!-- ✅ LEFT BRANDING SIDE -->
       <div class="auth-left">
         <div class="brand-content">
           <h1>Welcome to <span>SwasthyaSathi</span></h1>
 
           <p>
-            Medicine Scanner & AI Health Assistant  
-            for smarter, safer and stress-free healthcare support.
+            Medicine Scanner & AI Health Assistant for smarter, safer and
+            stress-free healthcare support.
           </p>
 
           <!-- ✅ LOTTIE DOCTOR AI ANIMATION -->
@@ -44,9 +43,10 @@
               src="https://assets10.lottiefiles.com/packages/lf20_jcikwtux.json"
               background="transparent"
               speed="1"
-              style="width: 300px; height: 300px;"
+              style="width: 300px; height: 300px"
               loop
-              autoplay>
+              autoplay
+            >
             </lottie-player>
           </div>
         </div>
@@ -55,7 +55,6 @@
       <!-- ✅ RIGHT FORM SIDE -->
       <div class="auth-right">
         <div class="form-box">
-
           <!-- Title -->
           <h1 class="title" id="form-title">Sign In</h1>
           <div class="underline"></div>
@@ -71,7 +70,6 @@
           <!-- ✅ LOGIN FORM (IDs SAFE) -->
           <form id="login-form" novalidate>
             <div class="input-group">
-
               <div class="input-field">
                 <i class="fa-solid fa-at"></i>
                 <input
@@ -102,9 +100,7 @@
 
             <!-- Buttons -->
             <div class="btn-field">
-              <button id="login-submit" type="submit">
-                Sign In
-              </button>
+              <button id="login-submit" type="submit">Sign In</button>
 
               <button id="show-register-btn" type="button">
                 Create Account
@@ -112,14 +108,12 @@
             </div>
 
             <!-- ✅ Social Login -->
-            <div class="social-login">
-            </div>
+            <div class="social-login"></div>
           </form>
 
           <!-- ✅ REGISTER FORM (IDs SAFE) -->
           <form id="register-form" hidden novalidate>
             <div class="input-group">
-
               <div class="input-field">
                 <i class="fa-solid fa-user"></i>
                 <input
@@ -152,6 +146,16 @@
                   required
                 />
               </div>
+              <div class="input-field">
+                <i class="fa-solid fa-key"></i>
+                <input
+                  id="register-confirm-password"
+                  name="confirmPassword"
+                  type="password"
+                  placeholder="Confirm Password"
+                  required
+                />
+              </div>
 
               <p>
                 <span>Password Help</span>
@@ -160,9 +164,7 @@
             </div>
 
             <div class="btn-field">
-              <button id="register-submit" type="submit">
-                Sign Up
-              </button>
+              <button id="register-submit" type="submit">Sign Up</button>
 
               <button id="show-login-btn" type="button">
                 Already have an account?
