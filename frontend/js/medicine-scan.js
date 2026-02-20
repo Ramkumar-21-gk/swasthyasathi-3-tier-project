@@ -29,7 +29,7 @@ async function handleImageUpload(event) {
     showMedicineDetails();
   } catch (err) {
     console.error(err);
-    alert("OCR failed. Try aga  in.");
+    alert("OCR failed. Try again.");
     searchBox.value = "";
   }
 }
